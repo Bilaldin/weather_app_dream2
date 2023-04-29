@@ -9,6 +9,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  // ignore: unused_element
   Future<Position> _getPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
