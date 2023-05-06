@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
+import 'package:weather_app/constants/texts/app_text.dart';
 import 'package:weather_app/views/search_view.dart';
 
 class Adam {
@@ -32,8 +34,18 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> showWeather() async {
     final position = await getPosition();
+    await abaYraiynAlipKel();
     log('Position latitude ===> ${position.latitude}');
     log('Position longitude ===> ${position.longitude}');
+  }
+
+  abaYraiynAlipKel() async {
+    var client = http.Client();
+
+    Uri uri = Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=37.421998333333335&lon= -122.084&appid=${AppText.myApiKey}');
+    final dannyiJoop = await client.get(uri);
+    log('dannyi joop ===> $dannyiJoop');
   }
 
   Future<Position> getPosition() async {
