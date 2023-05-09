@@ -39,6 +39,9 @@ class _HomeViewState extends State<HomeView> {
     log('Position longitude ===> ${position.longitude}');
   }
 
+  String temperatura = '15';
+  String oblast = 'osh';
+
   abaYraiynAlipKel() async {
     var client = http.Client();
 
@@ -124,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                 top: 90,
                 left: 40,
                 child: Text(
-                  '8°C',
+                  '$temperatura °C',
                   style: TextStyle(
                     fontSize: 75,
                     color: Colors.white,
@@ -168,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  'Bishkek',
+                  '$oblast',
                   style: TextStyle(
                     fontSize: 55,
                     color: Colors.white,
