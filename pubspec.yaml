@@ -37,6 +37,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   geolocator: ^9.0.2
   http: ^0.13.5
+  dio: ^5.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
