@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:weather_app/constants/texts/app_text.dart';
 import 'package:weather_app/views/search_view.dart';
 
@@ -36,32 +36,47 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> showWeather() async {
     final position = await getPosition();
-    await abaYraiynAlipKel();
+
     log('Position latitude ===> ${position.latitude}');
     log('Position longitude ===> ${position.longitude}');
-    getCurrentweather();
+    await getCurrentweather();
   }
 
-  final dio = Dio();
   Future<void> getCurrentweather() async {
-    final joop = await dio.get(AppiAdres);
-    final jsonData = json.decode(joop.data);
-    oblast = jsonData('name');
-    log('joooop====> ${oblast}');
+    final clien = Client();
+    final AppiAdres =
+        'https://api.openweathermap.org/data/2.5/weather?lat=37.421998333333335&lon= -122.084&appid=${AppText.myApiKey}';
+    Uri uri = Uri.parse(AppiAdres);
+    try {
+      final joop = await clien.get(uri);
+      final Murotjon = jsonDecode(joop.body);
+      shaar = Murotjon['name'];
+
+      final Kelvin = Murotjon['main']['temp'];
+      temperatura = Kelvin - 285.79;
+      setState(() {});
+      contri = Murotjon['sys']['temp'];
+      log('contri=====>$contri');
+      log('shaar=====>$shaar');
+      log('tepm====>${temperatura.toStringAsFixed(0)}');
+    } catch (e) {
+      print('$e');
+    }
+    ;
   }
 
-  String temperatura = '15';
-  String oblast = 'osh';
-  String AppiAdres =
-      'api.openweathermap.org/data/2.5/weather?lat=37.421998333333335&lon= -122.084&appid=${AppText.myApiKey}';
-  abaYraiynAlipKel() async {
-    var client = http.Client();
+  double temperatura = 0;
+  String shaar = '';
+  String contri = '';
 
-    Uri uri = Uri.parse(
-        'api.openweathermap.org/data/2.5/weather?lat=37.421998333333335&lon= -122.084&appid=${AppText.myApiKey}');
-    final dannyiJoop = await client.get(uri);
-    log('dannyi joop ===> $dannyiJoop');
-  }
+  // abaYraiynAlipKel() async {
+  //   var client = Client();
+
+  //   // Uri url = Uri.parse(
+  //   //     'api.openweathermap.org/data/2.5/weather?lat=37.421998333333335&lon= -122.084&appid=${AppText.myApiKey}');
+  //   // final dannyiJoop = await client.get(url);
+  //   // log('dannyi joop ===> $dannyiJoop');
+  // }
 
   Future<Position> getPosition() async {
     bool serviceEnabled;
@@ -173,7 +188,7 @@ class _HomeViewState extends State<HomeView> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  '$oblast',
+                  '$shaar',
                   style: TextStyle(
                     fontSize: 55,
                     color: Colors.white,
