@@ -152,6 +152,17 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               Positioned(
+                top: 20,
+                left: 40,
+                child: Text(
+                  'country',
+                  style: TextStyle(
+                    fontSize: 60,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Positioned(
                 top: 60,
                 left: 150,
                 child: Text(
