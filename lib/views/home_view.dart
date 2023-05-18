@@ -20,14 +20,8 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-String? name;
-List<String> names = [
-  'Kubat',
-];
-Set<String> name1 = {''};
-Map<String, String> map = {'': ''};
-
 class _HomeViewState extends State<HomeView> {
+  String cityname = '';
   @override
   void initState() {
     showWeather();
@@ -39,25 +33,25 @@ class _HomeViewState extends State<HomeView> {
 
     log('Position latitude ===> ${position.latitude}');
     log('Position longitude ===> ${position.longitude}');
-    await getCurrentweather();
+    getCurrentweather();
   }
 
   Future<void> getCurrentweather() async {
     final clien = Client();
     final AppiAdres =
-        'https://api.openweathermap.org/data/2.5/weather?lat=37.421998333333335&lon= -122.084&appid=${AppText.myApiKey}';
+        'https://api.openweathermap.org/data/2.5/weather?lat=40.5005544&lon=72.8074738&appid=${AppText.myApiKey}';
     Uri uri = Uri.parse(AppiAdres);
     try {
       final joop = await clien.get(uri);
       final Murotjon = jsonDecode(joop.body);
-      shaar = Murotjon['name'];
+      cityname = Murotjon['name'];
 
       final Kelvin = Murotjon['main']['temp'];
       temperatura = Kelvin - 285.79;
       setState(() {});
       contri = Murotjon['sys']['temp'];
       log('contri=====>$contri');
-      log('shaar=====>$shaar');
+      log('shaar=====>$cityname');
       log('tepm====>${temperatura.toStringAsFixed(0)}');
     } catch (e) {
       print('$e');
@@ -66,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   double temperatura = 0;
-  String shaar = '';
+
   String contri = '';
 
   // abaYraiynAlipKel() async {
@@ -199,7 +193,7 @@ class _HomeViewState extends State<HomeView> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  '$shaar',
+                  '$cityname',
                   style: TextStyle(
                     fontSize: 55,
                     color: Colors.white,
